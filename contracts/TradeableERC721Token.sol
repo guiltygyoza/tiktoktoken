@@ -20,8 +20,14 @@ contract TradeableERC721Token is ERC721Full, Ownable {
   address proxyRegistryAddress;
   uint256 private _currentTokenId = 0;
 
+  mapping (uint256 => string) tokenIdToMetadataUrl; // _tokenId => metadata query url
+  // mapping (bytes => uint256) IPFSHashToTokenId; // _IPFS hash => _tokenId (for security)
+
   constructor(string memory _name, string memory _symbol, address _proxyRegistryAddress) ERC721Full(_name, _symbol) public {
     proxyRegistryAddress = _proxyRegistryAddress;
+    tokenIdToMetadataUrl[1] = "https://tiktok-opensea-api.herokuapp.com/api/token/1";
+    tokenIdToMetadataUrl[2] = "https://tiktok-opensea-api.herokuapp.com/api/token/2";
+    tokenIdToMetadataUrl[3] = "https://tiktok-opensea-api.herokuapp.com/api/token/3";
   }
 
   /**
@@ -35,7 +41,7 @@ contract TradeableERC721Token is ERC721Full, Ownable {
   }
 
   /**
-    * @dev calculates the next token ID based on value of _currentTokenId 
+    * @dev calculates the next token ID based on value of _currentTokenId
     * @return uint256 for the next token ID
     */
   function _getNextTokenId() private view returns (uint256) {
@@ -43,7 +49,7 @@ contract TradeableERC721Token is ERC721Full, Ownable {
   }
 
   /**
-    * @dev increments the value of _currentTokenId 
+    * @dev increments the value of _currentTokenId
     */
   function _incrementTokenId() private  {
     _currentTokenId++;
@@ -54,10 +60,7 @@ contract TradeableERC721Token is ERC721Full, Ownable {
   }
 
   function tokenURI(uint256 _tokenId) external view returns (string memory) {
-    return Strings.strConcat(
-        baseTokenURI(),
-        Strings.uint2str(_tokenId)
-    );
+    return tokenIdToMetadataUrl[_tokenId];
   }
 
   /**

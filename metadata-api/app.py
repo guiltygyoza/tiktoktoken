@@ -11,7 +11,7 @@ GOOGLE_STORAGE_BUCKET = os.environ['GOOGLE_STORAGE_BUCKET']
 
 app = Flask(__name__)
 
-FIRST_NAMES = ['Herbie', 'Sprinkles', 'Boris', 'Dave', 'Randy', 'Captain']
+FIRST_NAMES = ['Tiktok', 'Tiktok', 'Tiktok', 'Dave', 'Randy', 'Captain']
 LAST_NAMES = ['Starbelly', 'Fisherton', 'McCoy']
 
 BASES = ['jellyfish', 'starfish', 'crab', 'narwhal', 'tealfish', 'goldfish']
@@ -46,6 +46,7 @@ def creature(token_id):
                                 'images/eyes/eyes-%s.png' % eyes,
                                 'images/mouths/mouth-%s.png' % mouth],
                                token_id)
+    image_url_tiktok = 'https://i.imgur.com/C0m62Ai.png'
 
     attributes = []
     _add_attribute(attributes, 'base', BASES, token_id)
@@ -62,7 +63,7 @@ def creature(token_id):
     return jsonify({
         'name': creature_name,
         'description': "Friendly OpenSea Creature that enjoys long swims in the ocean.",
-        'image': image_url,
+        'image': image_url_tiktok,
         'external_url': 'https://openseacreatures.io/%s' % token_id,
         'attributes': attributes
     })

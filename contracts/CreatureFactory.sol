@@ -15,9 +15,9 @@ contract CreatureFactory is Factory, Ownable {
   string public baseURI = "https://opensea-creatures-api.herokuapp.com/api/factory/";
 
   /**
-   * Enforce the existence of only 100 OpenSea creatures.
+   * Enforce the existence of only 3 OpenSea creatures.
    */
-  uint256 CREATURE_SUPPLY = 100;
+  uint256 CREATURE_SUPPLY = 3;
 
   /**
    * Three different options for minting Creatures (basic, premium, and gold).
@@ -49,7 +49,7 @@ contract CreatureFactory is Factory, Ownable {
   function numOptions() public view returns (uint256) {
     return NUM_OPTIONS;
   }
-  
+
   function mint(uint256 _optionId, address _toAddress) public {
     // Must be sent from the owner proxy or owner.
     ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
@@ -66,7 +66,7 @@ contract CreatureFactory is Factory, Ownable {
     } else if (_optionId == LOOTBOX_OPTION) {
       CreatureLootBox openSeaCreatureLootBox = CreatureLootBox(lootBoxNftAddress);
       openSeaCreatureLootBox.mintTo(_toAddress);
-    } 
+    }
   }
 
   function canMint(uint256 _optionId) public view returns (bool) {
@@ -88,7 +88,7 @@ contract CreatureFactory is Factory, Ownable {
     }
     return creatureSupply < (CREATURE_SUPPLY - numItemsAllocated);
   }
-  
+
   function tokenURI(uint256 _optionId) external view returns (string memory) {
     return Strings.strConcat(
         baseURI,
