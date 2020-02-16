@@ -3,3 +3,6 @@ flattened/
 node_modules/
 .env*
 *.DS_Store
+react-portfolio-template/
+old-tiktok-metadata-api/
+metadata-api/
